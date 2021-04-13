@@ -12,7 +12,6 @@ class MyApp extends StatelessWidget {
       title: 'Absence App',
       theme: ThemeData(
         fontFamily: 'Poppins',
-        primarySwatch: Colors.red,
         scaffoldBackgroundColor: Colors.white,
       ),
       home: LoginPage(),
