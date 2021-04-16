@@ -1,4 +1,5 @@
 import 'package:absen_app/page/home.dart';
+import 'package:absen_app/page/profile.dart';
 import 'package:absen_app/page/register.dart';
 import 'package:flutter/material.dart';
 
@@ -108,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                     textColor: Colors.black,
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => HomePage(),
+                        builder: (context) => ProfilePage(),
                       ));
                     },
                     shape: RoundedRectangleBorder(
