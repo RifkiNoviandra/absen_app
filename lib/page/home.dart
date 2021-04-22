@@ -1,6 +1,6 @@
 import 'package:absen_app/page/absen.dart';
 import 'package:absen_app/page/ijin.dart';
-import 'package:absen_app/page/profile.dart';
+import 'package:absen_app/page/profilelist.dart';
 import 'package:absen_app/page/riwayat.dart';
 import 'package:flutter/material.dart';
 
@@ -10,55 +10,46 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _currentIndex = 0;
-  void onTabTapped(int index) {
+  int _selectedIndex = 0;
+  List<Widget> _list = <Widget>[
+    BodyAbsen(),
+    BodyRiwayat(),
+    ProfileList(),
+  ];
+
+  void _onTap(int index) {
+    print(index);
     setState(() {
-      _currentIndex = index;
+      _selectedIndex = index;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> _children = [
-      HomePage(),
-      RiwayatPage(),
-      ProfilePage(),
-    ];
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      body: _list.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.teal.shade600,
-        currentIndex: _currentIndex,
-        onTap: onTabTapped,
-        items: [
+        type: BottomNavigationBarType.fixed,
+        items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: new Icon(Icons.home_outlined, size: 33),
-            title: new Text('Home'),
+            icon: Icon(Icons.home_outlined, size: 33),
+            title: Text('Home'),
           ),
           BottomNavigationBarItem(
-            icon: new Icon(Icons.folder_open_outlined, size: 33),
-            title: new Text('Riwayat'),
+            icon: Icon(Icons.folder_open_outlined, size: 33),
+            title: Text('Riwayat'),
           ),
           BottomNavigationBarItem(
-            icon: new Icon(Icons.account_circle_outlined, size: 33),
-            title: new Text('Profile'),
+            icon: Icon(Icons.account_circle_outlined, size: 33),
+            title: Text('Profile'),
           ),
         ],
+        currentIndex: _selectedIndex,
+        onTap: _onTap,
         elevation: 0,
         backgroundColor: Colors.white,
-      ),
-      backgroundColor: Colors.teal.shade600,
-      body: Center(
-        child: Column(
-          children: <Widget>[
-            Absen(
-              imgSrc: "assets/icons/home.png",
-            ),
-            Expanded(
-              child: BodyAbsen(),
-            ),
-          ],
-        ),
       ),
     );
   }
@@ -71,86 +62,99 @@ class BodyAbsen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(20),
-      width: double.infinity,
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
-          )),
-      child: Column(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 10.0),
-            child: Text(
-              "Hai, Database",
-              textAlign: TextAlign.center,
+    return SingleChildScrollView(
+      child: Container(
+        color: Colors.teal.shade600,
+        child: Column(
+          children: [
+            Absen(
+              imgSrc: "assets/icons/home.png",
             ),
-          ),
-          Text(
-            "Absen atau izin hari ini?",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 35,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-            child: SizedBox(
-              width: 370.0,
-              height: 50.0,
-              child: RaisedButton(
-                child: Text(
-                  "Absen",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15.0,
+            Container(
+              padding: EdgeInsets.all(20),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  )),
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 10.0),
+                    child: Text(
+                      "Hai, Bernadeth Alvira",
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                ),
-                color: Colors.teal.shade600,
-                textColor: Colors.white,
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => AbsenPage(),
-                  ));
-                },
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
+                  Text(
+                    "Absen atau izin hari ini?",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 35,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                    child: SizedBox(
+                      width: 370.0,
+                      height: 50.0,
+                      child: RaisedButton(
+                        child: Text(
+                          "Absen",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15.0,
+                          ),
+                        ),
+                        color: Colors.teal.shade600,
+                        textColor: Colors.white,
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => AbsenPage(),
+                          ));
+                          // onTap
+                        },
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                    child: SizedBox(
+                      width: 370.0,
+                      height: 50.0,
+                      child: RaisedButton(
+                        child: Text(
+                          "Izin",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15.0,
+                          ),
+                        ),
+                        color: Colors.white,
+                        textColor: Colors.black,
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => IzinPage(),
+                          ));
+                        },
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          side: BorderSide(color: Colors.black),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-            child: SizedBox(
-              width: 370.0,
-              height: 50.0,
-              child: RaisedButton(
-                child: Text(
-                  "Izin",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15.0,
-                  ),
-                ),
-                color: Colors.white,
-                textColor: Colors.black,
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => IzinPage(),
-                  ));
-                },
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                  side: BorderSide(color: Colors.black),
-                ),
-              ),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
