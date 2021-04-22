@@ -1,6 +1,4 @@
 import 'package:absen_app/page/home.dart';
-import 'package:absen_app/page/profile.dart';
-import 'package:absen_app/page/riwayat.dart';
 import 'package:flutter/material.dart';
 
 class AbsenTelatPage extends StatefulWidget {
@@ -9,20 +7,8 @@ class AbsenTelatPage extends StatefulWidget {
 }
 
 class _AbsenTelatPageState extends State<AbsenTelatPage> {
-  int _currentIndex = 0;
-  void onTabTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    final List<Widget> _children = [
-      HomePage(),
-      RiwayatPage(),
-      ProfilePage(),
-    ];
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       extendBodyBehindAppBar: false,
@@ -48,27 +34,6 @@ class _AbsenTelatPageState extends State<AbsenTelatPage> {
             backgroundColor: Colors.teal.shade600,
           ),
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.teal.shade600,
-        currentIndex: _currentIndex,
-        onTap: onTabTapped,
-        items: [
-          BottomNavigationBarItem(
-            icon: new Icon(Icons.home_outlined, size: 33),
-            title: new Text('Home'),
-          ),
-          BottomNavigationBarItem(
-            icon: new Icon(Icons.folder_open_outlined, size: 33),
-            title: new Text('Riwayat'),
-          ),
-          BottomNavigationBarItem(
-            icon: new Icon(Icons.account_circle_outlined, size: 33),
-            title: new Text('Profile'),
-          ),
-        ],
-        elevation: 0,
-        backgroundColor: Colors.white,
       ),
       backgroundColor: Colors.teal.shade600,
       body: Center(
@@ -103,13 +68,16 @@ class BodyFormAbsen extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            CircleAvatar(
-              backgroundColor: Colors.transparent,
-              radius: 40.0,
-              child: Image.asset('assets/images/userpic.png'),
+            Padding(
+              padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 0.0),
+              child: CircleAvatar(
+                backgroundColor: Colors.transparent,
+                radius: 50.0,
+                backgroundImage: AssetImage('assets/images/userpic.png'),
+              ),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 0.0),
+              padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
               child: Text(
                 "Bernadeth Alvira",
                 textAlign: TextAlign.center,
@@ -132,24 +100,33 @@ class BodyFormAbsen extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
-              child: Text(
-                "09.10 WIB",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.red,
-                  fontSize: 35,
-                  fontWeight: FontWeight.bold,
+              padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+              child: RichText(
+                text: TextSpan(
+                  text: '09.10',
+                  style: TextStyle(
+                      fontSize: 40,
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold),
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: '  WIB',
+                      style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+              padding: EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 0.0),
               child: Text(
-                "13-04-2021",
+                "Senin, 19 April 2021",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 15,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
