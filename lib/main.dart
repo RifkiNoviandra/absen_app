@@ -11,9 +11,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Absence App',
       theme: ThemeData(
-        fontFamily: 'Poppins',
-        scaffoldBackgroundColor: Colors.white,
-      ),
+          fontFamily: 'Poppins',
+          scaffoldBackgroundColor: Colors.white,
+          canvasColor: Colors.transparent),
       home: LoginPage(),
     );
   }
