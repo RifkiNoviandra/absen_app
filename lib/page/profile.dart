@@ -1,9 +1,13 @@
 import 'package:absen_app/page/home.dart';
+import 'package:absen_app/page/profilepic.dart';
 import 'package:flutter/material.dart';
 
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({Key key}) : super(key: key);
+class ProfilePage extends StatefulWidget {
+  @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
 
+class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,32 +32,17 @@ class ProfilePage extends StatelessWidget {
       body: Center(
         child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              CircleAvatar(
-                  backgroundColor: Colors.transparent,
-                  radius: 45.0,
-                  child: Image.asset('assets/images/userpic.png')),
+              ProfilePic(),
               Padding(
-                padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
-                child: Text(
-                  "Ganti",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 10.0),
+                padding: EdgeInsets.fromLTRB(10.0, 30.0, 10.0, 10.0),
                 child: TextField(
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.person),
                     labelText: 'Name',
                     enabledBorder: OutlineInputBorder(
                       borderRadius: const BorderRadius.all(
-                        const Radius.circular(12.0),
+                        const Radius.circular(25.0),
                       ),
                       borderSide: BorderSide(
                         color: Colors.teal.shade600,
@@ -61,7 +50,7 @@ class ProfilePage extends StatelessWidget {
                     ),
                     border: OutlineInputBorder(
                       borderRadius: const BorderRadius.all(
-                        const Radius.circular(12.0),
+                        const Radius.circular(25.0),
                       ),
                     ),
                   ),
@@ -77,7 +66,7 @@ class ProfilePage extends StatelessWidget {
                     labelText: 'Email',
                     enabledBorder: OutlineInputBorder(
                       borderRadius: const BorderRadius.all(
-                        const Radius.circular(12.0),
+                        const Radius.circular(25.0),
                       ),
                       borderSide: BorderSide(
                         color: Colors.teal.shade600,
@@ -85,7 +74,7 @@ class ProfilePage extends StatelessWidget {
                     ),
                     border: OutlineInputBorder(
                       borderRadius: const BorderRadius.all(
-                        const Radius.circular(12.0),
+                        const Radius.circular(25.0),
                       ),
                     ),
                   ),
@@ -100,7 +89,7 @@ class ProfilePage extends StatelessWidget {
                     labelText: 'Phone',
                     enabledBorder: OutlineInputBorder(
                       borderRadius: const BorderRadius.all(
-                        const Radius.circular(12.0),
+                        const Radius.circular(25.0),
                       ),
                       borderSide: BorderSide(
                         color: Colors.teal.shade600,
@@ -108,7 +97,7 @@ class ProfilePage extends StatelessWidget {
                     ),
                     border: OutlineInputBorder(
                       borderRadius: const BorderRadius.all(
-                        const Radius.circular(12.0),
+                        const Radius.circular(25.0),
                       ),
                     ),
                   ),
@@ -124,7 +113,7 @@ class ProfilePage extends StatelessWidget {
                     labelText: 'Asal Sekolah',
                     enabledBorder: OutlineInputBorder(
                       borderRadius: const BorderRadius.all(
-                        const Radius.circular(12.0),
+                        const Radius.circular(25.0),
                       ),
                       borderSide: BorderSide(
                         color: Colors.teal.shade600,
@@ -132,7 +121,7 @@ class ProfilePage extends StatelessWidget {
                     ),
                     border: OutlineInputBorder(
                       borderRadius: const BorderRadius.all(
-                        const Radius.circular(12.0),
+                        const Radius.circular(25.0),
                       ),
                     ),
                   ),
@@ -146,7 +135,7 @@ class ProfilePage extends StatelessWidget {
                   height: 50.0,
                   child: MaterialButton(
                     child: Text(
-                      'Sign Up',
+                      'Simpan Perubahan',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -160,7 +149,7 @@ class ProfilePage extends StatelessWidget {
                       ));
                     },
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
+                      borderRadius: BorderRadius.circular(25.0),
                     ),
                   ),
                 ),
