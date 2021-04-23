@@ -2,7 +2,14 @@ import 'package:absen_app/page/login.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 
-class Register extends StatelessWidget {
+class Register extends StatefulWidget {
+  @override
+  _RegisterState createState() => _RegisterState();
+}
+
+class _RegisterState extends State<Register> {
+  String dropdownValue = 'One';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,25 +93,32 @@ class Register extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-                child: TextField(
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.school),
-                    labelText: 'Asal Sekolah',
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: const BorderRadius.all(
-                        const Radius.circular(12.0),
-                      ),
-                      borderSide: BorderSide(
-                        color: Colors.teal.shade600,
-                      ),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: const BorderRadius.all(
-                        const Radius.circular(12.0),
-                      ),
-                    ),
+                child: DropdownButton<String>(
+                  value: dropdownValue,
+                  icon: Icon(Icons.arrow_downward),
+                  iconSize: 24,
+                  elevation: 16,
+                  style: TextStyle(color: Colors.teal.shade600),
+                  underline: Container(
+                    height: 2,
+                    color: Colors.teal.shade600,
                   ),
-                  onChanged: (value) {},
+                  hint: Container(
+                    alignment: Alignment.centerLeft,
+                    child: Text("Asal Sekolah"),
+                  ),
+                  onChanged: (String newValue) {
+                    setState(() {
+                      dropdownValue = newValue;
+                    });
+                  },
+                  items: <String>['One', 'Two', 'Three', 'Four']
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
                 ),
               ),
               Padding(
