@@ -94,7 +94,8 @@ class _RegisterState extends State<Register> {
               Padding(
                 padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
                 child: Container(
-                  padding: EdgeInsets.only(left: 10, right: 10),
+                  height: 62,
+                  padding: EdgeInsets.only(left: 10, right: 10, top: 6),
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.teal.shade600, width: 1),
                     borderRadius: BorderRadius.circular(12.0),
