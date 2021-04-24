@@ -8,7 +8,7 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  String dropdownValue = 'One';
+  String dropdownValue;
 
   @override
   Widget build(BuildContext context) {
@@ -92,33 +92,40 @@ class _RegisterState extends State<Register> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-                child: DropdownButton<String>(
-                  value: dropdownValue,
-                  icon: Icon(Icons.arrow_downward),
-                  iconSize: 24,
-                  elevation: 16,
-                  style: TextStyle(color: Colors.teal.shade600),
-                  underline: Container(
-                    height: 2,
-                    color: Colors.teal.shade600,
+                padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+                child: Container(
+                  padding: EdgeInsets.only(left: 10, right: 10),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.teal.shade600, width: 1),
+                    borderRadius: BorderRadius.circular(12.0),
                   ),
-                  hint: Container(
-                    alignment: Alignment.centerLeft,
-                    child: Text("Asal Sekolah"),
+                  child: DropdownButton<String>(
+                    value: dropdownValue,
+                    hint: Text('Asal Sekolah'),
+                    dropdownColor: Colors.white,
+                    isExpanded: true,
+                    underline: SizedBox(),
+                    icon: Icon(Icons.arrow_downward),
+                    iconSize: 24,
+                    elevation: 16,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    onChanged: (String newValue) {
+                      setState(() {
+                        dropdownValue = newValue;
+                      });
+                    },
+                    items: <String>['One', 'Two', 'Three', 'Four']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
                   ),
-                  onChanged: (String newValue) {
-                    setState(() {
-                      dropdownValue = newValue;
-                    });
-                  },
-                  items: <String>['One', 'Two', 'Three', 'Four']
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
                 ),
               ),
               Padding(
