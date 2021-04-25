@@ -23,19 +23,8 @@ class _RiwayatPageState extends State<RiwayatPage> {
               onPressed: () => Navigator.pop(context, false),
               color: Colors.white,
             ),
-            title: Container(
-              padding: EdgeInsets.all(20),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  topRight: Radius.circular(30),
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30),
-                ),
-              ),
-            ),
+            elevation: 0,
+            backgroundColor: Colors.teal.shade600,
           ),
         ),
       ),
@@ -64,11 +53,8 @@ class BodyRiwayat extends StatelessWidget {
       padding: EdgeInsets.all(20),
       width: double.infinity,
       decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(0),
-            topRight: Radius.circular(0),
-          )),
+        color: Colors.white,
+      ),
       child: SingleChildScrollView(
         child: Column(
           children: <Widget>[],
