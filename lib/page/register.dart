@@ -1,13 +1,34 @@
+import 'package:absen_app/API_code/registerAPI.dart';
 import 'package:absen_app/page/login.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class Register extends StatefulWidget {
   @override
   _RegisterState createState() => _RegisterState();
 }
 
+Future<UserRegister> userRegister(
+    String name, String email, String password) async {
+  final String apiUrl = "http://localhost:8080/user/login";
+  var response = await http.post(Uri.parse(apiUrl),
+      body: {"email": email, "name": name, "password": password});
+
+  if (response.statusCode == 200) {
+    final String responseString = response.body;
+
+    return userRegisterFromJson(responseString);
+  } else {
+    return null;
+  }
+}
+
 class _RegisterState extends State<Register> {
+  UserRegister _register;
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   String dropdownValue;
 
   @override
@@ -47,6 +68,7 @@ class _RegisterState extends State<Register> {
               Padding(
                 padding: EdgeInsets.fromLTRB(10.0, 40.0, 10.0, 10.0),
                 child: TextField(
+                  controller: nameController,
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.person),
                     labelText: 'Name',
@@ -70,6 +92,7 @@ class _RegisterState extends State<Register> {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
                 child: TextField(
+                  controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.email_outlined),
@@ -132,6 +155,7 @@ class _RegisterState extends State<Register> {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
                 child: TextField(
+                  controller: passwordController,
                   obscureText: true,
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.vpn_key),
@@ -192,10 +216,24 @@ class _RegisterState extends State<Register> {
                       ),
                     ),
                     color: Colors.teal.shade600,
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => LoginPage(),
-                      ));
+                    onPressed: () async {
+                      final String email = emailController.text;
+                      final String name = nameController.text;
+                      final String password = passwordController.text;
+
+                      final UserRegister register =
+                          await userRegister(name, email, password);
+
+                      setState(() {
+                        _register = register;
+                      });
+                      if (register.status == "Field empty") {}
+                      if (register.status == "Email Taken") {}
+                      if (register.status == "success") {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => LoginPage(),
+                        ));
+                      }
                     },
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12.0),

@@ -137,11 +137,14 @@ class _LoginPageState extends State<LoginPage> {
                         _user = user;
                       });
 
-                      if ("fetch message from API" ==
-                          "Your Email Isn't Registered") {}
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => HomePage(),
-                      ));
+                      if (user.status == "Field empty") {}
+                      if (user.status == "Email Not Found") {}
+                      if (user.status == "Wrong Password") {}
+                      if (user.status == "success") {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => HomePage(),
+                        ));
+                      }
                     },
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12.0),

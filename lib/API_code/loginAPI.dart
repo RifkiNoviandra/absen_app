@@ -6,20 +6,24 @@ String userLoginToJson(UserLogin data) => json.encode(data.toJson());
 
 class UserLogin {
   UserLogin({
-    this.email,
-    this.password,
+    this.status,
+    this.message,
+    this.data,
   });
 
-  String email;
-  String password;
+  String status;
+  String message;
+  List<dynamic> data;
 
   factory UserLogin.fromJson(Map<String, dynamic> json) => UserLogin(
-        email: json["email"],
-        password: json["password"],
+        status: json["status"],
+        message: json["message"],
+        data: List<dynamic>.from(json["data"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
-        "email": email,
-        "password": password,
+        "status": status,
+        "message": message,
+        "data": List<dynamic>.from(data.map((x) => x)),
       };
 }
