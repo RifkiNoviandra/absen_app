@@ -9,27 +9,15 @@ class Register extends StatefulWidget {
   _RegisterState createState() => _RegisterState();
 }
 
-Future<UserRegister> userRegister(
-    String name, String email, String password) async {
-  final String apiUrl = "http://localhost:8080/user/login";
-  var response = await http.post(Uri.parse(apiUrl),
-      body: {"email": email, "name": name, "password": password});
-
-  if (response.statusCode == 200) {
-    final String responseString = response.body;
-
-    return userRegisterFromJson(responseString);
-  } else {
-    return null;
-  }
-}
-
 class _RegisterState extends State<Register> {
   UserRegister _register;
+  SchoolList _school;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  String dropdownValue;
+  final TextEditingController dropdownController = TextEditingController();
+  List _APIdata;
+  String _APIvalue;
 
   @override
   Widget build(BuildContext context) {
@@ -124,32 +112,33 @@ class _RegisterState extends State<Register> {
                     borderRadius: BorderRadius.circular(12.0),
                   ),
                   child: DropdownButton<String>(
-                    value: dropdownValue,
-                    hint: Text('Asal Sekolah'),
-                    dropdownColor: Colors.white,
-                    isExpanded: true,
-                    underline: SizedBox(),
-                    icon: Icon(Icons.arrow_downward),
-                    iconSize: 24,
-                    elevation: 16,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    onChanged: (String newValue) {
-                      setState(() {
-                        dropdownValue = newValue;
-                      });
-                    },
-                    items: <String>['One', 'Two', 'Three', 'Four']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
+                      value: null,
+                      hint: Text('Asal Sekolah'),
+                      dropdownColor: Colors.white,
+                      isExpanded: true,
+                      underline: SizedBox(),
+                      icon: Icon(Icons.arrow_downward),
+                      iconSize: 24,
+                      elevation: 16,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      onChanged: (String newValue) {
+                        setState(() {
+                          _APIvalue = newValue;
+                          schoolList();
+                          print(_APIvalue);
+                        });
+                      },
+                      items: _APIdata?.map((item) {
+                            return new DropdownMenuItem(
+                              child: new Text(item['school_name']),
+                              value: item['nspn'].toString(),
+                            );
+                          })?.toList() ??
+                          []),
                 ),
               ),
               Padding(
@@ -220,9 +209,10 @@ class _RegisterState extends State<Register> {
                       final String email = emailController.text;
                       final String name = nameController.text;
                       final String password = passwordController.text;
+                      var school = dropdownController.value.toString();
 
                       final UserRegister register =
-                          await userRegister(name, email, password);
+                          await userRegister(name, email, password, school);
 
                       setState(() {
                         _register = register;
@@ -246,5 +236,41 @@ class _RegisterState extends State<Register> {
         ),
       ),
     );
+  }
+
+  Future<UserRegister> userRegister(
+      String name, String email, String password, String school) async {
+    final String apiUrl = "http://localhost:8080/user/login";
+    var response = await http.post(Uri.parse(apiUrl), body: {
+      "email": email,
+      "name": name,
+      "password": password,
+      "school": school
+    });
+
+    if (response.statusCode == 200) {
+      final String responseString = response.body;
+
+      return userRegisterFromJson(responseString);
+    } else {
+      return null;
+    }
+  }
+
+  Future<SchoolList> schoolList() async {
+    final String apiUrl = "http://localhost:8080/user/login";
+    var response = await http.get(Uri.parse(apiUrl));
+
+    if (response.statusCode == 200) {
+      final String responseString = response.body;
+
+      var info = schoolListFromJson(responseString);
+
+      setState(() {
+        _APIdata = info.data;
+      });
+    } else {
+      return null;
+    }
   }
 }

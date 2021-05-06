@@ -24,3 +24,28 @@ class UserRegister {
         "data": List<dynamic>.from(data.map((x) => x)),
       };
 }
+
+SchoolList schoolListFromJson(String str) => SchoolList.fromJson(json.decode(str));
+
+String schoolListToJson(SchoolList data) => json.encode(data.toJson());
+
+class SchoolList {
+    SchoolList({
+        this.status,
+        this.data,
+    });
+
+    String status;
+    List<dynamic> data;
+
+    factory SchoolList.fromJson(Map<String, dynamic> json) => SchoolList(
+        status: json["status"],
+        data: List<dynamic>.from(json["data"].map((x) => x)),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "status": status,
+        "data": List<dynamic>.from(data.map((x) => x)),
+    };
+}
+
